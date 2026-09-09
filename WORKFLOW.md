@@ -1,6 +1,6 @@
 # Korra approval-gated intake
 
-The only in-scope n8n workflow is `Korra â€” Approval-Gated Intake` (`J78JNcLYLI83YOmv`). Deanna-named workflows and `Business Concierge MVP` are unrelated assignment material and must not be reused or counted as Korra activity.
+The only in-scope n8n workflow is `Korra — Approval-Gated Intake` (`J78JNcLYLI83YOmv`). Deanna-named workflows and `Business Concierge MVP` are unrelated assignment material and must not be reused or counted as Korra activity.
 
 ## Public path
 
