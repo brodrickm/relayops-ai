@@ -1,82 +1,37 @@
-# Korra Brand Brief
+# Korra brand system
 
-## Name
+## Master public identity â€” Direction 1
 
-Korra
+Use only the approved Direction 1 asset from the Google Drive master `Korra Logo.png` for the website, header, footer, email templates, documents, and future onboarding materials.
 
-## Tagline
+Production files:
 
-Keep the work moving.
+- `assets/korra-direction-1.svg` â€” transparent SVG wrapper preserving the approved source pixels exactly
+- `assets/korra-direction-1.png` â€” transparent PNG
 
-## One-line pitch
+Do not redraw, reinterpret, trace, or combine this mark with another symbol. The previous geometric placeholder is retired.
 
-Korra helps small businesses capture requests, organize next steps, draft follow-ups, and keep owners in control without chasing every task manually.
+## Conversational identity â€” Direction 2
 
-## Short elevator pitch
+Direction 2 is icon-only and reserved for Korra assistant states:
 
-Korra keeps small businesses moving when the team is busy. It captures requests, prepares the next step, drafts follow-ups, and tracks the work so leads and tasks do not fall through the cracks.
+- Idle
+- Listening
+- Thinking / loading
+- Ready
 
-## What Korra does
+It must not replace the Direction 1 public wordmark.
 
-- Captures new requests from forms, websites, and inboxes
-- Summarizes what the customer needs
-- Recommends the next action
-- Drafts follow-up messages
-- Logs the work and keeps a clean action history
-- Routes important decisions for human approval
-- Reports daily outcomes and bottlenecks
+## Locked palette
 
-## What Korra does not do without approval
+- Ink `#0F172A`
+- Electric Blue `#3B82F6`
+- Indigo `#6366F1`
+- Purple `#A855F7`
+- Cyan `#22D3EE`
+- Background `#FAFAF8`
 
-- Send external messages
-- Spend money
-- Change account access
-- Use sensitive customer data outside approved workflows
-- Change business rules
-- Make legal, financial, hiring, or policy decisions
+## Safety promise
 
-## Brand feel
+Korra may capture, summarize, classify, draft, log, and recommend next steps. External messages, bookings, purchases, account changes, sensitive-data actions, and business-rule changes require human approval.
 
-- Calm
-- Capable
-- Practical
-- Premium but simple
-- Helpful, not hype-heavy
-
-## Positioning
-
-Korra is not sold as a generic AI chatbot. Korra is positioned as an operations layer for small businesses that need faster follow-up, cleaner task tracking, and fewer dropped requests.
-
-## Initial customer
-
-Small service businesses where leads, follow-ups, scheduling requests, estimates, and owner approvals often get stuck because the team is busy.
-
-Examples:
-
-- HVAC
-- Plumbing
-- Electrical
-- Handyman
-- Cleaning
-- Landscaping
-- Small professional service offices
-
-## Initial offer
-
-A 14-day founding pilot that identifies one operational leak and installs one approval-gated workflow.
-
-Pilot promise:
-
-We capture the work, organize the next step, draft the response, and keep the owner in control.
-
-## Launch gate
-
-Before public promotion, approve:
-
-- Final name clearance
-- Domain decision
-- Contact email
-- Privacy notice
-- Terms/disclaimer
-- Pilot pricing
-- What actions require human approval

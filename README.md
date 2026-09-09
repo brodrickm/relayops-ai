@@ -1,21 +1,20 @@
 # Korra
 
-Dependency-free launch site for Korra. Deploy the directory directly to Vercel as a static project.
+Production source for the Korra public site, approval-gated intake relay, brand assets, and email templates.
 
-## Positioning
+## Brand rules
 
-Korra helps small service businesses capture customer requests, organize next steps, draft follow-ups, and keep owners in control of important decisions.
+- Public-facing brand: exact Direction 1 artwork in `assets/korra-direction-1.svg` and `.png`.
+- Assistant states only: Direction 2 icon for idle, listening, thinking, and ready.
+- Locked palette: Ink `#0F172A`, Electric Blue `#3B82F6`, Indigo `#6366F1`, Purple `#A855F7`, Cyan `#22D3EE`, Background `#FAFAF8`.
 
-The initial wedge is intake through follow-up: turn scattered website, inbox, and form requests into logged actions with approval gates for anything consequential.
+## Intake flow
 
-## Elevator pitch
+`POST /api/intake` validates the public form and relays only to `KORRA_N8N_WEBHOOK_URL`. The n8n workflow calls the Supabase Edge Function, which creates an `awaiting_approval` lead and a `proposed` `draft_lead_reply` action with `approval_required` risk. It does not send messages or execute external actions.
 
-Korra keeps small businesses moving when the team is busy. It captures requests, prepares the next step, drafts follow-ups, and tracks the work so leads and tasks do not fall through the cracks.
+Required Vercel environment variable:
 
-## Local preview
+`KORRA_N8N_WEBHOOK_URL=https://automation-testing.app.n8n.cloud/webhook/korra-intake`
 
-Open `index.html` in a browser. No build step is required.
+The n8n workflow must be separately approved and published before the production webhook will accept submissions.
 
-## Launch gate
-
-Before public promotion, approve the final brand name, email CTA, offer, pricing, privacy notice, and terms.

@@ -1,15 +1,26 @@
-# Korra intake workflow
+# Korra approval-gated intake
 
-`korra-intake` accepts a guarded lead webhook, saves the request, asks OpenAI to classify and draft a response, then saves that response as an `approval_required` action. It never sends the reply automatically.
+The only in-scope n8n workflow is `Korra â€” Approval-Gated Intake` (`J78JNcLYLI83YOmv`). Deanna-named workflows and `Business Concierge MVP` are unrelated assignment material and must not be reused or counted as Korra activity.
 
-Required server-side secrets:
+## Public path
 
-- `OPENAI_API_KEY`
-- `KORRA_WEBHOOK_SECRET`
-- Supabase-provided `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`
+1. The website posts to same-origin `POST /api/intake`.
+2. The server-side relay validates and forwards to the Vercel environment variable `KORRA_N8N_WEBHOOK_URL`.
+3. The n8n webhook normalizes the intake and calls the Supabase `relay-intake` Edge Function.
+4. The Edge Function creates a lead, asks OpenAI to classify and draft, and logs a proposed action.
+5. n8n rejects any response claiming an external message was sent or an action was executed.
+6. The website displays a safe receipt without triggering a follow-up.
 
-The endpoint is intentionally unusable until the custom secrets are configured. Keep external sending in a separate executor that accepts only an explicitly approved `agent_actions` record.
+## Required outcome
 
-## Approval rule
+- lead status: `awaiting_approval`
+- action type: `draft_lead_reply`
+- risk: `approval_required`
+- action status: `proposed`
+- `approved_at`: empty
+- `executed_at`: empty
 
-Korra may summarize, classify, draft, log, and recommend next steps without approval. Korra must request approval before sending external messages, spending money, changing account access, using sensitive data, or changing business rules.
+## Deployment gate
+
+The n8n workflow is intentionally left unpublished until Brodrick approves activation. Until it is published and `KORRA_N8N_WEBHOOK_URL` is configured in Vercel, the public form returns a safe temporary-unavailable error and cannot trigger downstream work.
+
