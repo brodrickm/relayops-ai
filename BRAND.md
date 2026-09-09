@@ -1,17 +1,17 @@
 # Korra brand system
 
-## Master public identity â€” Direction 1
+## Master public identity — Direction 1
 
 Use only the approved Direction 1 asset from the Google Drive master `Korra Logo.png` for the website, header, footer, email templates, documents, and future onboarding materials.
 
 Production files:
 
-- `assets/korra-direction-1.svg` â€” transparent SVG wrapper preserving the approved source pixels exactly
-- `assets/korra-direction-1.png` â€” transparent PNG
+- `assets/korra-direction-1.svg` — transparent SVG wrapper preserving the approved source pixels exactly
+- `assets/korra-direction-1.png` — transparent PNG
 
 Do not redraw, reinterpret, trace, or combine this mark with another symbol. The previous geometric placeholder is retired.
 
-## Conversational identity â€” Direction 2
+## Conversational identity — Direction 2
 
 Direction 2 is icon-only and reserved for Korra assistant states:
 
