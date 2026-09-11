@@ -1,20 +1,22 @@
 # Korra
 
-Production source for the Korra public site, approval-gated intake relay, brand assets, and email templates.
+Production source for the Korra public site, approval gated intake relay, brand assets, lifecycle services, and message templates.
 
-## Brand rules
+## Production flow
 
-- Public-facing brand: exact Direction 1 artwork in `assets/korra-direction-1.svg` and `.png`.
-- Assistant states only: Direction 2 icon for idle, listening, thinking, and ready.
-- Locked palette: Ink `#0F172A`, Electric Blue `#3B82F6`, Indigo `#6366F1`, Purple `#A855F7`, Cyan `#22D3EE`, Background `#FAFAF8`.
+`POST /api/intake` validates the public form and relays only to `KORRA_N8N_WEBHOOK_URL`. The n8n workflow calls the Supabase `relay-intake` Edge Function, which creates or updates the tester lifecycle record, deduplicates repeated intake, prepares a private deterministic draft, creates an expiring approval request, and queues tester acknowledgment, owner approval, and tester follow up messages. It does not execute external actions before approval.
 
-## Intake flow
+Production lifecycle state is recorded in `testers`, `intake_submissions`, `outbound_messages`, `approval_requests`, `tester_feedback`, and `lifecycle_events`. The private `korra_owner_attention` view shows approvals, failures, and the next best action.
 
-`POST /api/intake` validates the public form and relays only to `KORRA_N8N_WEBHOOK_URL`. The n8n workflow calls the Supabase Edge Function, which creates an `awaiting_approval` lead and a `proposed` `draft_lead_reply` action with `approval_required` risk. It does not send messages or execute external actions.
+Public token protected Edge Functions:
+
+* `approval-action` records one approve or reject decision before expiry.
+* `tester-feedback` captures structured tester feedback and cancels pending follow up.
+
+The `lifecycle-worker` endpoint claims due messages for n8n delivery and retry handling. It requires the existing relay secret and Supabase authorization.
 
 Required Vercel environment variable:
 
 `KORRA_N8N_WEBHOOK_URL=https://automation-testing.app.n8n.cloud/webhook/korra-intake`
 
-The n8n workflow must be separately approved and published before the production webhook will accept submissions.
-
+Optional SMS approval delivery requires Twilio account credentials, a Twilio sender number, the owner phone number, and explicit owner SMS consent. Without all four, SMS remains recorded as skipped and is never reported as sent.
