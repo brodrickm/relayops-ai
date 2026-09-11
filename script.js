@@ -10,7 +10,6 @@ form.addEventListener('submit', async (event) => {
   if (!form.reportValidity()) return;
 
   const payload = Object.fromEntries(new FormData(form));
-  payload.idempotency_key = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   submitButton.disabled = true;
   form.classList.add('is-submitting');
 
@@ -45,4 +44,3 @@ document.querySelector('#submit-another').addEventListener('click', () => {
   form.hidden = false;
   form.querySelector('input').focus();
 });
-
