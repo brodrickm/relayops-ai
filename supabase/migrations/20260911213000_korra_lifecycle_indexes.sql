@@ -1,0 +1,12 @@
+create index if not exists approval_requests_organization_idx on public.approval_requests (organization_id);
+create index if not exists intake_submissions_lead_idx on public.intake_submissions (lead_id);
+create index if not exists intake_submissions_organization_idx on public.intake_submissions (organization_id);
+create index if not exists lifecycle_events_action_idx on public.lifecycle_events (action_id);
+create index if not exists lifecycle_events_lead_idx on public.lifecycle_events (lead_id);
+create index if not exists lifecycle_events_tester_idx on public.lifecycle_events (tester_id);
+create index if not exists outbound_messages_action_idx on public.outbound_messages (action_id);
+create index if not exists outbound_messages_organization_idx on public.outbound_messages (organization_id);
+create index if not exists tester_feedback_submission_idx on public.tester_feedback (intake_submission_id);
+create index if not exists tester_feedback_organization_idx on public.tester_feedback (organization_id);
+create index if not exists review_decisions_ai_output_idx on public.review_decisions (ai_output_id);
+create index if not exists workflow_runs_intake_request_idx on public.workflow_runs (intake_request_id);
