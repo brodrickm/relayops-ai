@@ -86,42 +86,42 @@
 
     <section id="contact" class="section intake-section">
       <div class="intake-copy">
-        <p class="eyebrow">Demo intake</p>
-        <h2>Where does work get stuck today?</h2>
-        <p>Share a business workflow you want to improve. Korra will prepare a proposed reply for internal review—nothing will be sent automatically.</p>
-        <div class="safety-note"><b>Approval-gated by design</b><span>Your submission creates a lead and a proposed draft action. A person must approve any external follow-up.</span></div>
+        <p class="eyebrow">Tell Korra where you need help</p>
+        <h2>What is the biggest thing slowing your business down right now?</h2>
+        <p>Tell us what keeps taking too long, getting missed, or pulling you away from your customers. Korra will organize the problem and prepare a helpful next step for you to review.</p>
+        <div class="safety-note"><b>You stay in control</b><span>Korra can prepare the work, but nothing is sent or changed until a person reviews and approves it.</span></div>
       </div>
       <form id="intake-form" class="intake-form" novalidate>
         <div class="field-row">
-          <label>Full name<input name="full_name" autocomplete="name" maxlength="120" required></label>
-          <label>Business<input name="business" autocomplete="organization" maxlength="160"></label>
+          <label>Your name<input name="full_name" autocomplete="name" maxlength="120" required></label>
+          <label>Business name<input name="business" autocomplete="organization" maxlength="160"></label>
         </div>
         <div class="field-row">
-          <label>Email<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
-          <label>Phone <span>(optional)</span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+          <label>Best email<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          <label>Best phone number <span>(optional)</span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
         </div>
-        <label>What workflow is slowing you down?<textarea name="workflow_bottleneck" rows="5" maxlength="2000" required placeholder="For example: new website inquiries wait too long for a first response."></textarea></label>
-        <label>Monthly inquiry volume <span>(optional)</span><input name="monthly_inquiry_volume" maxlength="80" placeholder="For example: about 75"></label>
+        <label>What is the biggest thing slowing your business down right now?<textarea name="workflow_bottleneck" rows="5" maxlength="2000" required placeholder="For example: We are not getting back to new customers quickly enough."></textarea></label>
+        <label>About how many new inquiries do you receive each month? <span>(optional)</span><input name="monthly_inquiry_volume" maxlength="80" placeholder="An estimate is fine, such as about 75"></label>
         <label class="honeypot" aria-hidden="true">Leave this blank<input name="company_website" tabindex="-1" autocomplete="off"></label>
         <p id="form-error" class="form-error" role="alert" hidden></p>
-        <button class="button submit" type="submit"><span>Prepare my demo request</span><span class="assistant-orb thinking submit-orb" aria-hidden="true"><span></span><span></span><span></span><span></span></span></button>
-        <p class="micro">Please do not include confidential client, health, payment, or account-access information.</p>
+        <button class="button submit" type="submit"><span>Show me how Korra can help</span><span class="assistant-orb thinking submit-orb" aria-hidden="true"><span></span><span></span><span></span><span></span></span></button>
+        <p class="micro">Please leave out private customer details, payment information, passwords, and medical information.</p>
       </form>
       <div id="intake-success" class="intake-success" role="status" hidden>
         <span class="assistant-orb ready" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-        <h3>Your request is queued for review.</h3>
-        <p>Korra prepared an internal draft. Nothing was sent, booked, purchased, or changed.</p>
+        <h3>We have your request.</h3>
+        <p>Korra prepared a next step for review. Nothing was sent, booked, purchased, or changed.</p>
         <div class="safety-note">
           <b>Your next step</b>
           <span id="intake-next-step">Check your email for testing instructions, complete one test, and send your feedback.</span>
         </div>
         <ol class="success-steps">
           <li>Open the email titled Your Korra test request is ready.</li>
-          <li>Confirm that this queued for review message appeared.</li>
+          <li>Confirm that you see this message letting you know we received your request.</li>
           <li>Use the feedback link in the email to tell us what was easy, confusing, or did not work.</li>
         </ol>
         <p id="intake-duplicate-note" class="micro" hidden>This request was already received, so Korra did not create duplicate outreach.</p>
-        <button id="submit-another" class="text-button" type="button">Submit another request</button>
+        <button id="submit-another" class="text-button" type="button">Tell us about another problem</button>
       </div>
     </section>
   </main>
