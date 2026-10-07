@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loafwise approval inbox prototype</title>
+<style>
+  body{font:16px system-ui;margin:0;background:#f7f4ec;color:#172019}main{max-width:760px;margin:auto;padding:32px}
+  article{background:white;border:1px solid #d7d2c7;border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 8px 30px #17201912}
+  button{border:0;border-radius:999px;padding:10px 18px;margin-right:8px;font-weight:700;cursor:pointer}
+  button:first-of-type{background:#2e6546;color:white}button:last-of-type{background:#efe5df;color:#722f2f}
+  [data-stale="true"]{color:#8c3d1f;font-weight:700}.notice{padding:12px;background:#fff7d8;border-radius:12px}
+</style>
+<main>
+  <p class="notice">Synthetic staging prototype. No live data and no action is sent.</p>
+  <h1>Approvals</h1>
+  <div id="inbox"></div>
+  <p id="result" aria-live="polite"></p>
+</main>
+<script type="module">
+import { buildApprovalInbox, recordInboxDecision, renderApprovalInbox } from './approval-inbox.mjs';
+const now='2026-10-07T23:00:00Z';
+const accountId='acct-demo';
+const actor={id:'owner-demo',accountId};
+const inbox=buildApprovalInbox({accountId,asOf:now,records:[
+  {id:'apr-demo-1',accountId,type:'approval',state:'pending',requestedAction:'Send the prepared follow up',observedAt:'2026-10-07T20:00:00Z',expiresAt:'2026-10-08T23:00:00Z'},
+  {id:'apr-demo-2',accountId,type:'approval',state:'pending',requestedAction:'Review the draft quote',observedAt:'2026-09-29T20:00:00Z',expiresAt:'2026-10-09T23:00:00Z'}
+]});
+renderApprovalInbox(document.querySelector('#inbox'),inbox,(item,type)=>{
+  const result=recordInboxDecision(item,accountId,{requestId:crypto.randomUUID(),type},actor,now);
+  document.querySelector('#result').textContent=result.ok?`Decision recorded: ${result.record.decision}. Nothing was sent.`:`Decision not recorded: ${result.code}.`;
+});
+</script>
+</html>
