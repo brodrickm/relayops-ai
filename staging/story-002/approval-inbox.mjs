@@ -12,6 +12,7 @@ export function buildApprovalInbox(input) {
     empty: context.approvals.length === 0,
     approvals: context.approvals.map((approval) => ({
       ...approval,
+      accountId: context.accountId,
       ageHours: approval.observedAt ? hoursBetween(context.asOf, approval.observedAt) : null,
       expiresInHours: approval.expiresAt ? hoursBetween(approval.expiresAt, context.asOf) : null,
       expired: approval.expiresAt ? Date.parse(approval.expiresAt) <= Date.parse(context.asOf) : false,
@@ -71,4 +72,5 @@ export function renderApprovalInbox(container, inbox, onDecision) {
     container.append(card);
   }
 }
+
 
