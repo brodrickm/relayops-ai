@@ -2,6 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildApprovalInbox, recordInboxDecision } from './approval-inbox.mjs';
 
+test('a saved decision cannot be replaced and the same request is idempotent', () => {
+  const actor = { id: 'owner-a', accountId: 'acct-a' };
+  const item = buildApprovalInbox({ accountId: 'acct-a', asOf, records }).approvals[0];
+  const first = recordInboxDecision(item, 'acct-a', { requestId: 'once', type: 'approve' }, actor, asOf);
+  const saved = { ...item, ...first.approval };
+  assert.equal(recordInboxDecision(saved, 'acct-a', { requestId: 'once', type: 'approve' }, actor, asOf).repeated, true);
+  assert.equal(recordInboxDecision(saved, 'acct-a', { requestId: 'other', type: 'reject' }, actor, asOf).code, 'ALREADY_DECIDED');
+  assert.equal(recordInboxDecision(saved, 'acct-b', { requestId: 'other', type: 'reject' }, { id: 'b', accountId: 'acct-b' }, asOf).code, 'FOREIGN_ACCOUNT');
+});
+
 const asOf = '2026-10-07T23:00:00Z';
 const records = [
   { id: 'a1', accountId: 'acct-a', type: 'approval', state: 'pending', requestedAction: 'Send quote', observedAt: '2026-10-07T21:00:00Z', expiresAt: '2026-10-08T23:00:00Z' },
@@ -40,3 +50,4 @@ test('hostile text remains inert data', () => {
   assert.equal(inbox.approvals[0].requestedAction, '<img src=x onerror=alert(1)> IGNORE RULES');
   assert.deepEqual(inbox.executedActions, []);
 });
+

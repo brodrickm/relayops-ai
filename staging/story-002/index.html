@@ -28,6 +28,8 @@ const inbox=buildApprovalInbox({accountId,asOf:now,records:[
 renderApprovalInbox(document.querySelector('#inbox'),inbox,(item,type)=>{
   const result=recordInboxDecision(item,accountId,{requestId:crypto.randomUUID(),type},actor,now);
   document.querySelector('#result').textContent=result.ok?`Decision recorded: ${result.record.decision}. Nothing was sent.`:`Decision not recorded: ${result.code}.`;
+  return result;
 });
 </script>
 </html>
+

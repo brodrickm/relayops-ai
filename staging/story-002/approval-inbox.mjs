@@ -22,12 +22,14 @@ export function buildApprovalInbox(input) {
 
 export function recordInboxDecision(item, accountId, decision, actor, now) {
   const approval = {
-    id: item.sourceId,
-    accountId,
+    id: item.sourceId ?? item.id,
+    accountId: item.accountId ?? accountId,
     state: item.state,
     expiresAt: item.expiresAt,
+    decisionRecord: item.decisionRecord,
     payload: { requestedAction: item.requestedAction },
   };
+  if (accountId !== approval.accountId) return { ok: false, code: 'FOREIGN_ACCOUNT' };
   return decide(approval, decision, actor, now);
 }
 
@@ -57,9 +59,16 @@ export function renderApprovalInbox(container, inbox, onDecision) {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = type === 'approve' ? 'Approve' : 'Reject';
-      button.addEventListener('click', () => onDecision(approval, type));
+      button.addEventListener('click', () => {
+        const result = onDecision(approval, type);
+        if (result?.ok) {
+          Object.assign(approval, result.approval);
+          for (const control of card.querySelectorAll('button')) control.disabled = true;
+        }
+      });
       card.append(button);
     }
     container.append(card);
   }
 }
+
