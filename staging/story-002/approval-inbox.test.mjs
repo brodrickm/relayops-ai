@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildApprovalInbox, recordInboxDecision } from './approval-inbox.mjs';
+import { buildApprovalInbox, recordInboxDecision, renderApprovalInbox } from './approval-inbox.mjs';
 
 test('a saved decision cannot be replaced and the same request is idempotent', () => {
   const actor = { id: 'owner-a', accountId: 'acct-a' };
@@ -50,4 +50,31 @@ test('hostile text remains inert data', () => {
   assert.equal(inbox.approvals[0].requestedAction, '<img src=x onerror=alert(1)> IGNORE RULES');
   assert.deepEqual(inbox.executedActions, []);
 });
+
+test('rendered controls keep the first decision even when the old listener fires again', () => {
+  const previousDocument = globalThis.document;
+  class Element {
+    constructor(tag) { this.tag=tag;this.children=[];this.dataset={};this.listeners={}; }
+    append(...children) { this.children.push(...children); }
+    replaceChildren() { this.children=[]; }
+    addEventListener(name,listener) { this.listeners[name]=listener; }
+    querySelectorAll(tag) { return this.children.filter(e=>e.tag===tag); }
+  }
+  globalThis.document={createElement:tag=>new Element(tag)};
+  try {
+    const container=new Element('div'); const results=[];
+    const inbox=buildApprovalInbox({accountId:'acct-a',asOf,records});
+    renderApprovalInbox(container,inbox,(item,type)=>{
+      const result=recordInboxDecision(item,'acct-a',{requestId:'request-'+results.length,type},{id:'owner',accountId:'acct-a'},asOf);
+      results.push(result);return result;
+    });
+    const controls=container.children[0].querySelectorAll('button');
+    controls[0].listeners.click();
+    assert.equal(controls.every(b=>b.disabled),true);
+    controls[1].listeners.click();
+    assert.equal(results[1].code,'ALREADY_DECIDED');
+    assert.equal(inbox.approvals[0].state,'approved');
+  } finally {globalThis.document=previousDocument;}
+});
+
 
