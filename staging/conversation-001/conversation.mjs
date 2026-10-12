@@ -1,6 +1,7 @@
 // Synthetic reference only. Callers must supply trusted identity and verification.
 export function receive(state, event, context) {
-  if (!context.authenticated || context.scope !== event.scope) return {state, outcome:'denied'};
+  if (!event || typeof event !== 'object' || typeof event.id !== 'string' || !event.id.trim() || event.id.length > 128 || (event.text !== undefined && typeof event.text !== 'string')) return {state, outcome:'invalid_event'};
+  if (!context?.authenticated || context.scope !== event.scope) return {state, outcome:'denied'};
   if (state.seen.includes(event.id)) return {state, outcome:'duplicate'};
   const next = {...state, seen:[...state.seen,event.id]};
   if (event.text?.trim().toUpperCase() === 'STOP') return {state:{...next, stopped:true},outcome:'stopped'};
